@@ -24,17 +24,25 @@ public class Game {
   while (snake.isInbounds()) {
    int dir = getKeypress();
 
+   //getKeypress() checks if W, A, S, or D is pressed.
+   //If a valid key is detected, the snake’s direction is updated.
    if (dir != -1) {
     snake.changeDirection(dir);
    }
 
    snake.move();
 
+   //checks if the snake head is close enough to the food
    if (snake.eatFood(food)) {
-    food = new Food();
+    food = new Food(); //replace the old food object with a new instance
     score ++;
    }
+//IN food class: position is randomly set. The food is drawn at this new location in the next frame.
 
+
+   //Clears the screen.
+   //Draws the snake and the food.
+   //Displays the updated score.
    updateDrawing();
   }
 

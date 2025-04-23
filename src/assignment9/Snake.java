@@ -39,9 +39,12 @@ public class Snake {
   */
  public void move() {
   BodySegment head = segments.getFirst();
+  
+  //deltaX and deltaY are direction values set by user input (WASD)
   double newX = head.getX() + deltaX;
   double newY = head.getY() + deltaY;
-
+  
+  //A new head segment is created at the updated position.
   segments.addFirst(new BodySegment(newX, newY, SEGMENT_SIZE));
 
   segments.removeLast();
@@ -60,11 +63,13 @@ public class Snake {
   * Check if head intersects with food; grow if so
   */
  public boolean eatFood(Food f) {
+	 //checks the distance between head and food
   BodySegment head = segments.getFirst();
   double dx = head.getX() - f.getX();
   double dy = head.getY() - f.getY();
   double dist = Math.sqrt(dx * dx + dy * dy);
 
+  //new segment at end(tail), and gets pulled along to the next move() call
   if (dist < (SEGMENT_SIZE + Food.FOOD_SIZE)) {
    BodySegment tail = segments.getLast();
    segments.addLast(new BodySegment(tail.getX(), tail.getY(), SEGMENT_SIZE));
@@ -77,7 +82,7 @@ public class Snake {
   * Return true if the head is within the bounds of the screen
   */
  public boolean isInbounds() {
-  BodySegment head = segments.getFirst();
+  BodySegment head = segments.getFirst(); // Get the head of the snake
   double x = head.getX();
   double y = head.getY();
   if (x >= 0 && x <= 1 && y >= 0 && y <= 1) {
